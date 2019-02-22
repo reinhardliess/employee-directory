@@ -33,7 +33,7 @@ Alternatively it can be run with the [Live Server](https://marketplace.visualstu
 
 ## Exceeds Grade Project Requirements
 
-* Employees can be filtered by name with dynamically added search feature
+* Employees can be filtered by name with a dynamically added search feature
 * Functionality has been added to switch back and forth between employees when the detail modal window is open
 * No errors in the console when the end or beginning of the list is reached
 * At least one of the following style changes has been added
