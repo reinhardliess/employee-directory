@@ -5,10 +5,13 @@
   FSJS project 5 - Public API Request
   Reinhard Liess, 2019
 ******************************************/
-
+/** manages the modal window */
 class ModalWindow {
+  /**
+   * Create modal window
+   * @param {object} App object, needed to access employee info
+   */
   constructor(owner) {
-    // points to app object, needed to access employee info
     this.owner = owner;
     // position in record set of employees
     this.position = null;
