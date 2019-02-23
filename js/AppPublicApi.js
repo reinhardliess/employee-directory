@@ -5,25 +5,16 @@
   FSJS project 5 - Public API Request
   Reinhard Liess, 2019
 ******************************************/
-
+/** class managing the app */
 class AppPublicApi {
   constructor() {
+    this.employees = [];
     this.addSearch();
     this.modal = new ModalWindow(this);
     this.fetchError = false;
-    const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
+    const api = new RandomUserApi(this, {results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
                                   this.onFetchOk, this.onFetchError);
-    this.employees = api.fetch();
-    this.addEmployeesToPage();
-  }
-  /**
-   * Adds employees to page
-   */
-  addEmployeesToPage() {
-    if (this.fetchError) {
-      return
-    }
-
+    api.fetch();
   }
 
   /**
@@ -31,8 +22,26 @@ class AppPublicApi {
    * @param {object} data from Api
    */
   onFetchOk(data) {
-    // console.log({data});
+    //  Called in a Promise chain, so this = RandomUserApi
+    const self = this.parent;
+    if (data.error) {
+      self.onFetchError(new Error(data.error));
+      return
+    }
+    self.employees = data.results;
+    /* for(let i = 0; i < self.employees.length; i++) {
+      self.employees[i].idArray = i;
+    } */
+    self.addEmployeesToPage();
+    // add click event handler for cards
+    document.querySelector('.gallery').addEventListener('click', (event) => {
+      const target = event.target;
 
+      const card = target.closest('.card');
+      const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
+      const position = self.employees.findIndex(element => element.email === email);
+      // self.modal.show(position);
+    });
   }
 
   /**
@@ -41,7 +50,31 @@ class AppPublicApi {
    */
   onFetchError(error) {
     this.fetchError = true;
+    console.error(error.message);
+  }
 
+  /**
+   * Adds employees to page
+   */
+  addEmployeesToPage() {
+    if (this.fetchError) {
+      return
+    }
+    const gallery = document.querySelector('#gallery');
+    this.employees.forEach(employee => {
+      const html =
+      ` <div class="card">
+          <div class="card-img-container">
+            <img class="card-img" src=${employee.picture.medium} alt="profile picture">
+          </div>
+          <div class="card-info-container">
+            <h3 id="name" class="card-name cap">${employee.name.first} ${employee.name.last}</h3>
+            <p class="card-text">${employee.email}</p>
+            <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
+          </div>
+        </div>`;
+        gallery.insertAdjacentHTML('beforeend', html);
+    });
   }
 
   /**
