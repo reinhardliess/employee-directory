@@ -36,11 +36,13 @@ class AppPublicApi {
     // add click event handler for cards
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;
-
-      const card = target.closest('.card');
-      const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
-      const position = self.employees.findIndex(element => element.email === email);
-      // self.modal.show(position);
+      if (self.modal.hidden) {
+        const card = target.closest('.card');
+        const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
+        const position = self.employees.findIndex(element => element.email === email);
+        self.modal.hidden = false;
+        self.modal.show(position);
+      }
     });
   }
 
