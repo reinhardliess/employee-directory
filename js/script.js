@@ -6,3 +6,5 @@
   Reinhard Liess, 2019
 ******************************************/
 
+// main script file
+const app = new AppPublicApi();
