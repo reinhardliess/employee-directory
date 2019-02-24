@@ -75,10 +75,12 @@ class ModalWindow {
     document.querySelector('body > script').insertAdjacentHTML('beforebegin', html);
     this.hidden = true;
 
-    // TODO: add keyboard escape handler to close
-    document.querySelector('#modal-close-btn').addEventListener('click', () => {
-      if (!this.hidden) {
-        this.hidden = true;
+    document.querySelector('#modal-close-btn').addEventListener('click', this.hide);
+    document.addEventListener('keydown', (event) => {
+      const keyCode = event.keyCode;
+      // console.log({keyCode});
+      if (keyCode === 27) {
+        this.hide();
       }
     });
 
@@ -119,6 +121,15 @@ class ModalWindow {
     <p class="modal-text">Birthday: ${birthday}</p>
     `;
     this.modalInfoContainer.insertAdjacentHTML('afterbegin', html);
+  }
+
+  /**
+   * Hides modal window
+   */
+  hide = () => {
+    if (!this.hidden) {
+      this.hidden = true;
+    }
   }
 
   /**
