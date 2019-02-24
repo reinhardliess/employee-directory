@@ -10,7 +10,7 @@
 class AppPublicApi {
   constructor() {
     this.employees = [];
-    this.addSearch();
+    this.filteredEmployees = [];
     this.modal = new ModalWindow(this);
     this.fetchError = false;
     const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
@@ -18,6 +18,13 @@ class AppPublicApi {
     api.fetch();
   }
 
+  /**
+   * Returns input search field
+   * @return {HTMLElement} input search field
+   */
+  get inputSearch() {
+    return document.querySelector('#search-input');
+  }
   /**
    * Callback in case of a a succesful fetch operation
    * @param {object} data from Api
@@ -33,21 +40,19 @@ class AppPublicApi {
       this.onFetchError(new Error(data.error));
       return
     }
+
+    this.addSearch();
     this.employees = data.results;
-    // Add index to match employee array with js-id attribute of .card
-    for(let i = 0; i < this.employees.length; i++) {
-      this.employees[i].idArray = i;
-    }
+    this.employeesReset();
     this.addEmployeesToPage();
+
     // add click event handler for cards
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;
       if (this.modal.hidden) {
         const card = target.closest('.card');
-        // const position = parseInt(card.getAttribute('js-id'));
-        // console.log('position: %d', position);
         const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
-        const position = this.employees.findIndex(element => element.email === email);
+        const position = this.filteredEmployees.findIndex(element => element.email === email);
         this.modal.hidden = false;
         this.modal.show(position);
       }
@@ -85,11 +90,6 @@ class AppPublicApi {
         </div>`;
         gallery.insertAdjacentHTML('beforeend', html);
     });
-    const cards = document.querySelectorAll('.card');
-    // Add index to DOM to match employee.[].idArray
-    for(let i = 0; i < cards.length; i++) {
-      cards[i].setAttribute('js-id', `${i}`);
-    }
 
   }
 
@@ -104,6 +104,64 @@ class AppPublicApi {
           <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
        </form>`;
     divSearch.insertAdjacentHTML('afterbegin', html);
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      // console.log('Submitted');
+      const searchText = this.inputSearch.value.trim().toLowerCase();
+      this.search(searchText);
+    });
+    /*
+    const inputSearch = document.querySelector('#search-input');
+    inputSearch.addEventListener('click', (event) => {
+      console.log('clicked');
+    });
+     inputSearch.addEventListener('keyup', (event) => {
+      if (event.keyCode === 27) {
+        console.log('ESC');
+      }
+    });
+    */
+  }
+
+  /**
+   * Executes search and filters employees
+   * @param {string} search-text
+   */
+  search(searchText) {
+    this.employees.forEach(employee => {
+      const name = `${employee.name.first} ${employee.name.last}`.toLowerCase();
+      employee.visible = name.includes(searchText);
+    });
+    for(let i = 0; i < this.employees.length; i++) {
+      const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
+      // console.log(card);
+      card.style.display = this.employees[i].visible ? '' : 'none';
+    }
+    this.filterEmployees();
+    console.log(this.filteredEmployees);
+  }
+
+  /**
+   * Update page
+   */
+  updatePage() {
+
+  }
+
+  /**
+   * Create filtered employee array for modal window (forward/backwards)
+   */
+  filterEmployees() {
+    this.filteredEmployees = this.employees.filter(employee => employee.visible)
+  }
+
+  /**
+   * Initializes, sets all employees as visible
+   */
+  employeesReset() {
+    this.employees.forEach(employee => employee.visible = true);
+    this.filterEmployees();
   }
 }
 
