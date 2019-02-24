@@ -9,12 +9,11 @@
 class RandomUserApi {
   /**
    * Initialize Api
-   * @param {object} Parent object (for callback management)
    * @param {object} Api options as key/value pairs
    * @param {function} Function called in case of successful fetch operation
    * @param {function} [callback] Function called in case of error
    */
-  constructor(parent, objParams, cbOnFetchOk, cbOnError) {
+  constructor(objParams, cbOnFetchOk, cbOnError) {
     this.urlApi = 'https://randomuser.me/api/' + this.buildUri(objParams);
     this.parent = parent;
     this.cbOnFetchOk = cbOnFetchOk;

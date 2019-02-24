@@ -13,7 +13,7 @@ class AppPublicApi {
     this.addSearch();
     this.modal = new ModalWindow(this);
     this.fetchError = false;
-    const api = new RandomUserApi(this, {results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
+    const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
                                   this.onFetchOk, this.onFetchError);
     api.fetch();
   }
@@ -22,9 +22,9 @@ class AppPublicApi {
    * Callback in case of a a succesful fetch operation
    * @param {object} data from Api
    */
-  onFetchOk(data) {
-    //  Called in a Promise chain, so this = RandomUserApi
-    const self = this.parent;
+  onFetchOk = (data) => {
+    //  Called in a Promise chain,
+    // const self = this.parent;
 
     /* Api error format
     {
@@ -32,24 +32,24 @@ class AppPublicApi {
     }
     */
     if (data.error) {
-      self.onFetchError(new Error(data.error));
+      this.onFetchError(new Error(data.error));
       return
     }
-    self.employees = data.results;
+    this.employees = data.results;
     // Add index to match employee array with js-id attribute of .card
-    for(let i = 0; i < self.employees.length; i++) {
-      self.employees[i].idArray = i;
+    for(let i = 0; i < this.employees.length; i++) {
+      this.employees[i].idArray = i;
     }
-    self.addEmployeesToPage();
+    this.addEmployeesToPage();
     // add click event handler for cards
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;
-      if (self.modal.hidden) {
+      if (this.modal.hidden) {
         const card = target.closest('.card');
         const position = parseInt(card.getAttribute('js-id'));
-        console.log({position});
-        self.modal.hidden = false;
-        self.modal.show(position);
+        console.log('position: %d', position);
+        this.modal.hidden = false;
+        this.modal.show(position);
       }
     });
   }
