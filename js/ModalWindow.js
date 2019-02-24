@@ -100,13 +100,12 @@ class ModalWindow {
    * Show modal window
    * @param {integer} index of record to display
    */
-  // TODO: format address => proper case
-  // TODO: format birthday
   show(index) {
     this.clearInfo();
 
     const employee = this.parent.employees[index];
     this.position = index;
+    const birthday = employee.dob.date.replace(/(\d{4})-(\d{2})-(\d{2})T.*Z/, '$2/$3/$1');
 
     const html =
     `<img class="modal-img" src="${employee.picture.large}" alt="profile picture">
@@ -117,7 +116,7 @@ class ModalWindow {
     <p class="modal-text">${employee.cell}</p>
     <p class="modal-text cap">${employee.location.street}, ${employee.location.city},
      ${employee.location.state} ${employee.location.postcode}</p>
-    <p class="modal-text">Birthday: ${employee.dob.date}</p>
+    <p class="modal-text">Birthday: ${birthday}</p>
     `;
     this.modalInfoContainer.insertAdjacentHTML('afterbegin', html);
   }
