@@ -44,8 +44,10 @@ class AppPublicApi {
       const target = event.target;
       if (this.modal.hidden) {
         const card = target.closest('.card');
-        const position = parseInt(card.getAttribute('js-id'));
-        console.log('position: %d', position);
+        // const position = parseInt(card.getAttribute('js-id'));
+        // console.log('position: %d', position);
+        const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
+        const position = this.employees.findIndex(element => element.email === email);
         this.modal.hidden = false;
         this.modal.show(position);
       }
