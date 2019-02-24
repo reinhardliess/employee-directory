@@ -23,8 +23,6 @@ class AppPublicApi {
    * @param {object} data from Api
    */
   onFetchOk = (data) => {
-    //  Called in a Promise chain,
-    // const self = this.parent;
 
     /* Api error format
     {
@@ -58,7 +56,7 @@ class AppPublicApi {
    * Callback in case of a fetch error
    * @param {error} error object
    */
-  onFetchError(error) {
+  onFetchError = (error) => {
     this.fetchError = true;
     console.error(error.message);
   }
