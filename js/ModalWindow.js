@@ -75,6 +75,7 @@ class ModalWindow {
     document.querySelector('body > script').insertAdjacentHTML('beforebegin', html);
     this.hidden = true;
 
+    // TODO: add keyboard escape handler to close
     document.querySelector('#modal-close-btn').addEventListener('click', () => {
       if (!this.hidden) {
         this.hidden = true;
@@ -100,6 +101,7 @@ class ModalWindow {
    * @param {integer} index of record to display
    */
   // TODO: format address => proper case
+  // TODO: format birthday
   show(index) {
     this.clearInfo();
 
@@ -113,7 +115,7 @@ class ModalWindow {
     <p class="modal-text cap">${employee.location.city}</p>
     <hr>
     <p class="modal-text">${employee.cell}</p>
-    <p class="modal-text">${employee.location.street}, ${employee.location.city},
+    <p class="modal-text cap">${employee.location.street}, ${employee.location.city},
      ${employee.location.state} ${employee.location.postcode}</p>
     <p class="modal-text">Birthday: ${employee.dob.date}</p>
     `;
