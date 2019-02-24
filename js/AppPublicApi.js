@@ -5,6 +5,7 @@
   FSJS project 5 - Public API Request
   Reinhard Liess, 2019
 ******************************************/
+
 /** class managing the app */
 class AppPublicApi {
   constructor() {
@@ -24,22 +25,29 @@ class AppPublicApi {
   onFetchOk(data) {
     //  Called in a Promise chain, so this = RandomUserApi
     const self = this.parent;
+
+    /* Api error format
+    {
+      error: "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."
+    }
+    */
     if (data.error) {
       self.onFetchError(new Error(data.error));
       return
     }
     self.employees = data.results;
-    /* for(let i = 0; i < self.employees.length; i++) {
+    // Add index to match employee array with js-id attribute of .card
+    for(let i = 0; i < self.employees.length; i++) {
       self.employees[i].idArray = i;
-    } */
+    }
     self.addEmployeesToPage();
     // add click event handler for cards
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;
       if (self.modal.hidden) {
         const card = target.closest('.card');
-        const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
-        const position = self.employees.findIndex(element => element.email === email);
+        const position = parseInt(card.getAttribute('js-id'));
+        console.log({position});
         self.modal.hidden = false;
         self.modal.show(position);
       }
@@ -77,6 +85,12 @@ class AppPublicApi {
         </div>`;
         gallery.insertAdjacentHTML('beforeend', html);
     });
+    const cards = document.querySelectorAll('.card');
+    // Add index to DOM to match employee.[].idArray
+    for(let i = 0; i < cards.length; i++) {
+      cards[i].setAttribute('js-id', `${i}`);
+    }
+
   }
 
   /**
