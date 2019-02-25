@@ -5,6 +5,7 @@
   FSJS project 5 - Public API Request
   Reinhard Liess, 2019
 ******************************************/
+
 /** manages the modal window */
 class ModalWindow {
   /**
@@ -78,7 +79,7 @@ class ModalWindow {
     document.querySelector('#modal-close-btn').addEventListener('click', this.hide);
     document.addEventListener('keydown', (event) => {
       const keyCode = event.keyCode;
-      // console.log({keyCode});
+      // if ESC was pressed
       if (keyCode === 27) {
         this.hide();
       }
@@ -105,7 +106,7 @@ class ModalWindow {
   show(index) {
     this.clearInfo();
 
-    const employee = this.parent.employees[index];
+    const employee = this.parent.filteredEmployees[index];
     this.position = index;
     const birthday = employee.dob.date.replace(/(\d{4})-(\d{2})-(\d{2})T.*Z/, '$2/$3/$1');
 
@@ -124,7 +125,7 @@ class ModalWindow {
   }
 
   /**
-   * Hides modal window
+   * Event handler to hide modal window
    */
   hide = () => {
     if (!this.hidden) {
@@ -146,7 +147,7 @@ class ModalWindow {
    * Moves to next record in modal window
    */
   next() {
-    if(this.position === this.parent.employees.length - 1) {
+    if(this.position === this.parent.filteredEmployees.length - 1) {
       this.show(0)
     } else {
       this.show(this.position + 1);
@@ -158,7 +159,7 @@ class ModalWindow {
    */
   previous() {
     if(this.position === 0) {
-      this.show(this.parent.employees.length - 1);
+      this.show(this.parent.filteredEmployees.length - 1);
     } else {
       this.show(this.position - 1);
     }
