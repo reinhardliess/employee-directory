@@ -12,6 +12,7 @@ class AppPublicApi {
     this.employees = [];
     this.filteredEmployees = [];
     this.modal = new ModalWindow(this);
+    // TODO: fetcherror seems to be redundant
     this.fetchError = false;
     const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
                                   this.onFetchOk, this.onFetchError);
@@ -49,8 +50,8 @@ class AppPublicApi {
     // add click event handler for cards
     document.querySelector('.gallery').addEventListener('click', (event) => {
       const target = event.target;
-      if (this.modal.hidden) {
-        const card = target.closest('.card');
+      const card = target.closest('.card');
+      if (this.modal.hidden && card) {
         const email = card.querySelector('div.card-info-container > p:nth-child(2)').textContent;
         const position = this.filteredEmployees.findIndex(element => element.email === email);
         this.modal.hidden = false;
@@ -60,7 +61,7 @@ class AppPublicApi {
   }
 
   /**
-   * Callback in case of a fetch error
+   * Callback in case of an error in the Promise chain of the Api fetch operation
    * @param {error} error object
    */
   onFetchError = (error) => {
@@ -109,7 +110,12 @@ class AppPublicApi {
       event.preventDefault();
       // console.log('Submitted');
       const searchText = this.inputSearch.value.trim().toLowerCase();
-      this.search(searchText);
+      if (searchText) {
+        this.search(searchText);
+      } else {
+        this.employeesReset();
+        this.updatePage();
+      }
     });
     /*
     const inputSearch = document.querySelector('#search-input');
@@ -133,20 +139,19 @@ class AppPublicApi {
       const name = `${employee.name.first} ${employee.name.last}`.toLowerCase();
       employee.visible = name.includes(searchText);
     });
-    for(let i = 0; i < this.employees.length; i++) {
-      const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
-      // console.log(card);
-      card.style.display = this.employees[i].visible ? '' : 'none';
-    }
+    this.updatePage();
     this.filterEmployees();
     console.log(this.filteredEmployees);
   }
 
   /**
-   * Update page
+   * Update page, show/hide employees based on visible flag
    */
   updatePage() {
-
+    for(let i = 0; i < this.employees.length; i++) {
+      const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
+      card.style.display = this.employees[i].visible ? '' : 'none';
+    }
   }
 
   /**
