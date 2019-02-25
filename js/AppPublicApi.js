@@ -108,7 +108,6 @@ class AppPublicApi {
 
     document.querySelector('form').addEventListener('submit', (event) => {
       event.preventDefault();
-      // console.log('Submitted');
       const searchText = this.inputSearch.value.trim().toLowerCase();
       if (searchText) {
         this.search(searchText);
@@ -141,7 +140,6 @@ class AppPublicApi {
     });
     this.updatePage();
     this.filterEmployees();
-    console.log(this.filteredEmployees);
   }
 
   /**
