@@ -7,4 +7,5 @@
 ******************************************/
 
 // main script file
+// Initialize the app
 const app = new AppPublicApi();
