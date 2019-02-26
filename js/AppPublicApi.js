@@ -137,10 +137,23 @@ class AppPublicApi {
     });
     this.updatePage();
     this.filterEmployees();
+
     if (!this.filteredEmployees.length) {
       this.displayErrorMsg('There are no employees matching the search criteria');
+      return
     }
+    // at least one employee was found
+    const css = new AnimateCss();
+    setTimeout(() => {
+      for (let i = 0; i < this.employees.length; i++) {
+        if (this.employees[i].visible) {
+          const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
+          css.animateNode(card, 'pulse');
+        }
+      }
+    }, 200);
   }
+
 
 
 
@@ -148,6 +161,7 @@ class AppPublicApi {
    * Update page, show/hide employees based on visible flag
    */
   updatePage() {
+    // REFACTOR: dry
     for(let i = 0; i < this.employees.length; i++) {
       const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
       card.style.display = this.employees[i].visible ? '' : 'none';
