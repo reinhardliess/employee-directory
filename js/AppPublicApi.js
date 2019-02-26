@@ -46,6 +46,7 @@ class AppPublicApi {
       error: "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."
     }
     */
+
     if (data.error) {
       this.onFetchError(new Error(data.error));
       return
@@ -74,8 +75,10 @@ class AppPublicApi {
    * @param {error} error object
    */
   onFetchError = (error) => {
-    this.fetchError = true;
-    this.displayErrorMsg(error.message);
+    const errorMsg =
+    `Unable to retrieve data from the <a href="https://randomuser.me/">Random User API.</a><br>
+    Specifically: ${error.message}`;
+    this.displayErrorMsg(errorMsg);
   }
 
   /**
@@ -125,17 +128,6 @@ class AppPublicApi {
         this.updatePage();
       }
     });
-    /*
-    const inputSearch = document.querySelector('#search-input');
-    inputSearch.addEventListener('click', (event) => {
-      console.log('clicked');
-    });
-     inputSearch.addEventListener('keyup', (event) => {
-      if (event.keyCode === 27) {
-        console.log('ESC');
-      }
-    });
-    */
   }
 
   /**
@@ -173,7 +165,7 @@ class AppPublicApi {
    */
   displayErrorMsg(message) {
     const div = this.errorMessage;
-    div.firstElementChild.textContent = message;
+    div.firstElementChild.innerHTML = message;
     div.style.display = '';
   }
 
