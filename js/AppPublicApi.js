@@ -12,8 +12,6 @@ class AppPublicApi {
     this.employees = [];
     this.filteredEmployees = [];
     this.modal = new ModalWindow(this);
-    // TODO: fetcherror seems to be redundant
-    this.fetchError = false;
     const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
                                   this.onFetchOk, this.onFetchError);
     api.fetch();
@@ -85,9 +83,7 @@ class AppPublicApi {
    * Adds employees to page
    */
   addEmployeesToPage() {
-    if (this.fetchError) {
-      return
-    }
+
     const gallery = document.querySelector('#gallery');
     this.employees.forEach(employee => {
       const html =

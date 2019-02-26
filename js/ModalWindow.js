@@ -14,7 +14,7 @@ class ModalWindow {
    */
   constructor(parent) {
     this.parent = parent;
-    // position in record set of employees
+    // position in record set of (filtered) employees
     this.position = null;
     this.create();
   }
@@ -47,12 +47,16 @@ class ModalWindow {
    * Sets hidden status of modal window
    * @param {boolean} visible or hidden
    */
+  // set hidden(isHidden) {
+  //   if (isHidden) {
+  //     this.modalContainer.style.display = 'none';
+  //   } else {
+  //     this.modalContainer.style.display = '';
+  //   }
+  // }
+
   set hidden(isHidden) {
-    if (isHidden) {
-      this.modalContainer.style.display = 'none';
-    } else {
-      this.modalContainer.style.display = '';
-    }
+    this.modalContainer.style.display = isHidden ? 'none' : '';
   }
 
   /**

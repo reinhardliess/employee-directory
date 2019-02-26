@@ -11,7 +11,7 @@ class RandomUserApi {
    * Initialize Api
    * @param {object} Api options as key/value pairs
    * @param {function} Function called in case of successful fetch operation
-   * @param {function} [callback] Function called in case of error
+   * @param {function} Function called in case of error
    */
   constructor(objParams, cbOnFetchOk, cbOnError) {
     this.urlApi = 'https://randomuser.me/api/' + this.buildUri(objParams);
@@ -47,7 +47,7 @@ class RandomUserApi {
   }
 
   checkStatus(response) {
-    console.log({response});
+    // console.log({response});
     if (response.ok) {
       return Promise.resolve(response);
     } else {
