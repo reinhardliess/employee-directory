@@ -26,6 +26,15 @@ class AppPublicApi {
   get inputSearch() {
     return document.querySelector('#search-input');
   }
+
+   /**
+   * Return error message div
+   * @return  {HTMLElement} error message div
+   */
+  get errorMessage() {
+    return document.querySelector('#error-message');
+  }
+
   /**
    * Callback in case of a a succesful fetch operation
    * @param {object} data from Api
@@ -66,7 +75,7 @@ class AppPublicApi {
    */
   onFetchError = (error) => {
     this.fetchError = true;
-    console.error(error.message);
+    this.displayErrorMsg(error.message);
   }
 
   /**
@@ -140,7 +149,12 @@ class AppPublicApi {
     });
     this.updatePage();
     this.filterEmployees();
+    if (!this.filteredEmployees.length) {
+      this.displayErrorMsg('There are no employees matching the search criteria');
+    }
   }
+
+
 
   /**
    * Update page, show/hide employees based on visible flag
@@ -150,6 +164,24 @@ class AppPublicApi {
       const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
       card.style.display = this.employees[i].visible ? '' : 'none';
     }
+    this.hideErrorMsg();
+  }
+
+  /**
+   * Displays error message
+   * @param {string} error message
+   */
+  displayErrorMsg(message) {
+    const div = this.errorMessage;
+    div.firstElementChild.textContent = message;
+    div.style.display = '';
+  }
+
+  /**
+   * Hides error message
+   */
+  hideErrorMsg() {
+    this.errorMessage.style.display = 'none';
   }
 
   /**
