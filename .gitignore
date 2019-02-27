@@ -1,4 +1,7 @@
 # additonal files, only local
 local-files/
 
+# vscode Code Runner extension
+tempCodeRunnerFile.*
+
 # End of Rard
