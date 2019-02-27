@@ -16,7 +16,7 @@ Since the app uses the Fetch API it can't be run locally. The following files an
 
 Alternatively it can be run with the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension in [Visual Studio Code](https://code.visualstudio.com/).
 
-The app uses ES6 classes with arrow functions and [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties) in order to use callbacks and event handlers as methods while retaining the correct _this_, so it will only run in Chrome out of the box. Other browsers will need Babel. \(See [codepen](https://codepen.io/anon/pen/zaYvqq) by [Stackoverflow](https://stackoverflow.com/questions/229080/class-methods-as-event-handlers-in-javascript) user pawel\).
+The app uses ES6 classes with arrow functions and [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties) in order to use callbacks and event handlers as methods while retaining the correct _this_, so it will only run in Google Chrome out of the box. Other browsers will need Babel. \(See [codepen](https://codepen.io/anon/pen/zaYvqq) by [Stackoverflow](https://stackoverflow.com/questions/229080/class-methods-as-event-handlers-in-javascript) user pawel\).
 
 
 ## Basic Project requirements
