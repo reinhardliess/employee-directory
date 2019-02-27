@@ -39,8 +39,8 @@ class AppPublicApi {
    */
   onFetchOk = (data) => {
 
-    /* Api error format
-    {
+    /* // Api error format
+    data = {
       error: "Uh oh, something has gone wrong. Please tweet us @randomapi about the issue. Thank you."
     }
     */
@@ -74,7 +74,7 @@ class AppPublicApi {
    */
   onFetchError = (error) => {
     const errorMsg =
-    `Unable to retrieve data from the <a href="https://randomuser.me/">Random User API.</a><br>
+    `&#9888; Unable to retrieve data from the <a href="https://randomuser.me/">Random User API.</a><br>
     Specifically: ${error.message}`;
     this.displayErrorMsg(errorMsg);
   }
@@ -109,7 +109,7 @@ class AppPublicApi {
     const divSearch = document.querySelector('.search-container');
     const html =
       `<form action="#" method="get">
-          <input type="search" id="search-input" class="search-input" placeholder="Search...">
+          <input type="search" id="search-input" class="search-input" placeholder="Search..." autofocus>
           <input type="submit" value="&#x1F50D;" id="search-submit" class="search-submit">
        </form>`;
     divSearch.insertAdjacentHTML('afterbegin', html);

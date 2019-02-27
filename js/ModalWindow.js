@@ -135,6 +135,7 @@ class ModalWindow {
     if (!this.hidden) {
       this.hidden = true;
     }
+    this.parent.inputSearch.focus();
   }
 
   /**
