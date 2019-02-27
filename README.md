@@ -16,8 +16,7 @@ Since the app uses the Fetch API it can't be run locally. The following files an
 
 Alternatively it can be run with the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension in [Visual Studio Code](https://code.visualstudio.com/).
 
-The app uses ES6 classes with arrow functions and [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties) in order to use callbacks and event handlers as methods while retaining the correct _this_, so it will only run in Google Chrome out of the box. Other browsers will need Babel. \(See [codepen](https://codepen.io/anon/pen/zaYvqq) by [Stackoverflow](https://stackoverflow.com/questions/229080/class-methods-as-event-handlers-in-javascript) user pawel\).
-
+The app uses ES6 classes with arrow functions and [class properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties) in order to use callbacks and event handlers as methods while retaining the correct _this_ - it will only run in Google Chrome out of the box. Other browsers will need the source code transpiled with [Babel](https://babeljs.io/).
 
 ## Basic Project requirements
 
@@ -45,9 +44,25 @@ The app uses ES6 classes with arrow functions and [class properties](https://bab
   * Font
   * Box or text shadows
 
-### Some Additional remarks
+## Some Additional remarks
 
-#### Design changes / CSS
+* The modal window can also be closed by pressing `ESC`
 
-#### Some additional coding conventions
+### ES6 Classes
+
+* `AppPublicApi` manages the app
+* `RandomUserApi` creates an interface with the Random User Api
+* `ModalWindow` manages the modal window
+
+### Search functionality
+
+* The search input box will receive the focus when the page loads. It will also get the focus back after the modal window closes
+* Clearing the search box and pressing `Enter` or clicking the search button will re-display all 12 employees.
+
+### Design changes / CSS
+
+* Changed font and color for header text, also added a text shadow
+* Added a pulse animation for those cards that are found after a filter/search
+
+### Some additional coding conventions
 
