@@ -15,7 +15,6 @@ class RandomUserApi {
    */
   constructor(objParams, cbOnFetchOk, cbOnError) {
     this.urlApi = 'https://randomuser.me/api/' + this.buildUri(objParams);
-    this.parent = parent;
     this.cbOnFetchOk = cbOnFetchOk;
     this.cbOnError = cbOnError;
   }

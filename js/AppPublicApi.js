@@ -12,7 +12,7 @@ class AppPublicApi {
     this.employees = [];
     this.filteredEmployees = [];
     this.modal = new ModalWindow(this);
-    const api = new RandomUserApi({results: 12, nat: 'US', inc: 'name,location,email,dob,cell,picture'},
+    const api = new RandomUserApi({results: 12, nat: 'US,GB', inc: 'name,location,email,dob,cell,picture'},
                                   this.onFetchOk, this.onFetchError);
     api.fetch();
   }
@@ -34,7 +34,7 @@ class AppPublicApi {
   }
 
   /**
-   * Callback in case of a a succesful fetch operation
+   * Callback in case of a successful fetch operation
    * @param {object} data from Api
    */
   onFetchOk = (data) => {
@@ -56,7 +56,7 @@ class AppPublicApi {
     this.addEmployeesToPage();
 
     // add click event handler for cards
-    document.querySelector('.gallery').addEventListener('click', (event) => {
+    document.querySelector('#gallery').addEventListener('click', (event) => {
       const target = event.target;
       const card = target.closest('.card');
       if (this.modal.hidden && card) {
@@ -192,7 +192,7 @@ class AppPublicApi {
   }
 
   /**
-   * Create filtered employee array for modal window (forward/backwards)
+   * Create filtered employee array for modal window (forward/backwards buttons)
    */
   filterEmployees() {
     this.filteredEmployees = this.employees.filter(employee => employee.visible)
