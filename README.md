@@ -57,10 +57,9 @@ The app uses ES6 classes with arrow functions and [class properties](https://bab
 ### Search functionality
 
 * The search input box will receive the focus when the page loads. It will also get the focus back after the modal window closes
-* Clearing the search box and pressing `Enter` or clicking the search button will will reset and re-display all 12 employees.
+* Clearing the search box and pressing `Enter` or clicking the search button will reset and re-display all 12 employees.
 
 ### Design changes / CSS
 
 * Changed font and color for header text, also added a text shadow
 * Added a pulse animation for those cards that are found after a filter/search
-

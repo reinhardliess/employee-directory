@@ -1,7 +1,7 @@
 {
     "liveServer.settings.port": 4500,
     "liveServer.settings.CustomBrowser" : "chrome",
-    "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome --incognito --user-data-dir=d:\\tmp\\chrome-debug\ --remote-debugging-port=9222",
+    "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome --incognito --user-data-dir=d:\\tmp\\chrome-debug\\ --remote-debugging-port=9222",
     "liveServer.settings.NoBrowser" : false,
     "liveServer.settings.ignoreFiles" : [
             ".vscode/**",
