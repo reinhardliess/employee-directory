@@ -147,23 +147,28 @@ class AppPublicApi {
     setTimeout(() => {
       for (let i = 0; i < this.employees.length; i++) {
         if (this.employees[i].visible) {
-          const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
-          css.animateNode(card, 'pulse');
+          css.animateNode(this.getCard(i + 1), 'pulse');
         }
       }
     }, 200);
   }
 
-
+  /**
+   * Retrieves employee card at index 1..n
+   * @param {integer} index
+   * @return {HTMLElement} card
+   */
+  getCard(index) {
+    return document.querySelector(`#gallery > div:nth-child(${index})`);
+  }
 
 
   /**
    * Update page, show/hide employees based on visible flag
    */
   updatePage() {
-    // REFACTOR: dry
     for(let i = 0; i < this.employees.length; i++) {
-      const card = document.querySelector(`#gallery > div:nth-child(${i + 1})`);
+      const card = this.getCard(i + 1);
       card.style.display = this.employees[i].visible ? '' : 'none';
     }
     this.hideErrorMsg();

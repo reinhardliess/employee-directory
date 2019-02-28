@@ -47,13 +47,6 @@ class ModalWindow {
    * Sets hidden status of modal window
    * @param {boolean} visible or hidden
    */
-  // set hidden(isHidden) {
-  //   if (isHidden) {
-  //     this.modalContainer.style.display = 'none';
-  //   } else {
-  //     this.modalContainer.style.display = '';
-  //   }
-  // }
 
   set hidden(isHidden) {
     this.modalContainer.style.display = isHidden ? 'none' : '';
@@ -84,7 +77,7 @@ class ModalWindow {
     document.addEventListener('keydown', (event) => {
       const keyCode = event.keyCode;
       // if ESC was pressed
-      if (keyCode === 27) {
+      if (!this.hidden && keyCode === 27) {
         this.hide();
       }
     });
@@ -105,7 +98,7 @@ class ModalWindow {
 
   /**
    * Show modal window
-   * @param {integer} index of record to display
+   * @param {integer} index of record of filtered employee list to display, 0..n-1
    */
   show(index) {
     this.clearInfo();
