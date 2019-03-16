@@ -1,4 +1,4 @@
-# JavaScript Techdegree Project #: Public API requests
+# JavaScript Techdegree Project #5: Public API requests
 
 A live version of this project can be found [here](https://rliess.github.io/js-techdegree-project5/).
 
