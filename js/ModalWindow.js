@@ -108,13 +108,13 @@ class ModalWindow {
     const birthday = employee.dob.date.replace(/(\d{4})-(\d{2})-(\d{2})T.*Z/, '$2/$3/$1');
 
     const html =
-    `<img class="modal-img" src="${employee.picture.large}" alt="profile picture">
+      `<img class="modal-img" src="${employee.picture.large}" alt="profile picture">
     <h3 id="name" class="modal-name cap">${employee.name.first} ${employee.name.last}</h3>
     <p class="modal-text">${employee.email}</p>
     <p class="modal-text cap">${employee.location.city}</p>
     <hr>
     <p class="modal-text">${employee.cell}</p>
-    <p class="modal-text cap">${employee.location.street}, ${employee.location.city},
+    <p class="modal-text cap">${employee.location.street.number} ${employee.location.street.name}, ${employee.location.city},
      ${employee.location.state} ${employee.location.postcode}</p>
     <p class="modal-text">Birthday: ${birthday}</p>
     `;
@@ -145,7 +145,7 @@ class ModalWindow {
    * Moves to next record in modal window
    */
   next() {
-    if(this.position === this.parent.filteredEmployees.length - 1) {
+    if (this.position === this.parent.filteredEmployees.length - 1) {
       this.show(0)
     } else {
       this.show(this.position + 1);
@@ -156,7 +156,7 @@ class ModalWindow {
    * Moves to previous record in modal window
    */
   previous() {
-    if(this.position === 0) {
+    if (this.position === 0) {
       this.show(this.parent.filteredEmployees.length - 1);
     } else {
       this.show(this.position - 1);
