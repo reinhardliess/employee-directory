@@ -16,6 +16,7 @@ class ModalWindow {
     this.parent = parent;
     // position in record set of (filtered) employees
     this.position = null;
+    this.hide = this.hide.bind(this);
     this.create();
   }
 
@@ -124,7 +125,7 @@ class ModalWindow {
   /**
    * Event handler to hide modal window
    */
-  hide = () => {
+  hide() {
     if (!this.hidden) {
       this.hidden = true;
     }

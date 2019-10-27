@@ -9,11 +9,13 @@
 /** class managing the app */
 class AppPublicApi {
   constructor() {
+    this.onFetchOk = this.onFetchOk.bind(this);
+    this.onFetchError = this.onFetchError.bind(this);
     this.employees = [];
     this.filteredEmployees = [];
     this.modal = new ModalWindow(this);
-    const api = new RandomUserApi({results: 12, nat: 'US,GB', inc: 'name,location,email,dob,cell,picture'},
-                                  this.onFetchOk, this.onFetchError);
+    const api = new RandomUserApi({ results: 12, nat: 'US,GB', inc: 'name,location,email,dob,cell,picture' },
+      this.onFetchOk, this.onFetchError);
     api.fetch();
   }
 
@@ -25,10 +27,10 @@ class AppPublicApi {
     return document.querySelector('#search-input');
   }
 
-   /**
-   * Return error message div
-   * @return  {HTMLElement} error message div
-   */
+  /**
+  * Return error message div
+  * @return  {HTMLElement} error message div
+  */
   get errorMessage() {
     return document.querySelector('#error-message');
   }
@@ -37,7 +39,7 @@ class AppPublicApi {
    * Callback in case of a successful fetch operation
    * @param {object} data from Api
    */
-  onFetchOk = (data) => {
+  onFetchOk(data) {
 
     /* // Api error format
     data = {
@@ -72,9 +74,9 @@ class AppPublicApi {
    * Callback in case of an error in the Promise chain of the Api fetch operation
    * @param {error} error object
    */
-  onFetchError = (error) => {
+  onFetchError(error) {
     const errorMsg =
-    `&#9888; Unable to retrieve data from the <a href="https://randomuser.me/">Random User API.</a><br>
+      `&#9888; Unable to retrieve data from the <a href="https://randomuser.me/">Random User API.</a><br>
     Specifically: ${error.message}`;
     this.displayErrorMsg(errorMsg);
   }
@@ -87,7 +89,7 @@ class AppPublicApi {
     const gallery = document.querySelector('#gallery');
     this.employees.forEach(employee => {
       const html =
-      ` <div class="card">
+        ` <div class="card">
           <div class="card-img-container">
             <img class="card-img" src=${employee.picture.medium} alt="profile picture">
           </div>
@@ -97,7 +99,7 @@ class AppPublicApi {
             <p class="card-text cap">${employee.location.city}, ${employee.location.state}</p>
           </div>
         </div>`;
-        gallery.insertAdjacentHTML('beforeend', html);
+      gallery.insertAdjacentHTML('beforeend', html);
     });
 
   }
@@ -167,7 +169,7 @@ class AppPublicApi {
    * Update page, show/hide employees based on visible flag
    */
   updatePage() {
-    for(let i = 0; i < this.employees.length; i++) {
+    for (let i = 0; i < this.employees.length; i++) {
       const card = this.getCard(i + 1);
       card.style.display = this.employees[i].visible ? '' : 'none';
     }
