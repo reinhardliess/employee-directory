@@ -4,7 +4,7 @@
 
 In this project I accessed the [Random User API](https://randomuser.me/) to retrieve information for 12 random "employees" and use that data to build a prototype for an employee directory of a fictional company called "Awesome Startup". When any part of an employee item in the directory is clicked, a modal window pops up displaying detailed information about that employee. I also implemented a search function by which the employee list can be filtered by name. Also, functionality has been added to switch back and forth between employees when the detail modal window is open, both in browse and search modes.
 
-A live version of this project can be found [here](https://rliess.github.io/employee-directory/).
+A live version of this project can be found [here](https://reinhardliess.github.io/employee-directory/).
 
 ### Some Additional remarks
 
